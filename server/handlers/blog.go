@@ -61,12 +61,13 @@ func CreateBlog(c *fiber.Ctx) error {
 }
 
 func GetAllBlogs(c *fiber.Ctx) error {
-	blogs, err := service.GetAllBlogs()
+	page := c.QueryInt("page", 1)
+	blogsResponse, err := service.QueryBlogs(page)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to retrieve blogs"})
 	}
 
-	return c.JSON(blogs)
+	return c.JSON(blogsResponse)
 }
 
 func GetBlogBySlug(c *fiber.Ctx) error {

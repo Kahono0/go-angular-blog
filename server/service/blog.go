@@ -45,13 +45,36 @@ func CreateBlog(b *models.Blog) error {
 	return nil
 }
 
-func GetAllBlogs() ([]models.Blog, error) {
+var Limit = 10
+
+type QueryBlogsResponse struct {
+	Data       []models.Blog `json:"data"`
+	TotalPages int           `json:"total_pages"`
+}
+
+func QueryBlogs(page int) (*QueryBlogsResponse, error) {
+	if page < 1 {
+		page = 1
+	}
+
 	var blogs []models.Blog
-	if err := db.DB.Find(&blogs).Error; err != nil {
+	var total int64
+
+	if err := db.DB.Model(&models.Blog{}).Count(&total).Error; err != nil {
 		return nil, err
 	}
 
-	return blogs, nil
+	offset := (page - 1) * Limit
+	if err := db.DB.Offset(offset).Limit(Limit).Find(&blogs).Error; err != nil {
+		return nil, err
+	}
+
+	totalPages := (int(total) + Limit - 1) / Limit
+
+	return &QueryBlogsResponse{
+		Data:       blogs,
+		TotalPages: totalPages,
+	}, nil
 }
 
 func GetBlogBySlug(slug string) (*models.Blog, error) {
