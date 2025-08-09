@@ -45,7 +45,7 @@ func CreateBlog(b *models.Blog) error {
 	return nil
 }
 
-var Limit = 10
+var DefaultLimit = 10
 
 type QueryBlogsResponse struct {
 	Data        []models.Blog `json:"data"`
@@ -53,7 +53,10 @@ type QueryBlogsResponse struct {
 	CurrentPage int           `json:"currentPage"`
 }
 
-func QueryBlogs(page int) (*QueryBlogsResponse, error) {
+func QueryBlogs(page, limit int) (*QueryBlogsResponse, error) {
+	if limit <= 0 {
+		limit = DefaultLimit
+	}
 	if page < 1 {
 		page = 1
 	}
@@ -65,12 +68,12 @@ func QueryBlogs(page int) (*QueryBlogsResponse, error) {
 		return nil, err
 	}
 
-	offset := (page - 1) * Limit
-	if err := db.DB.Offset(offset).Limit(Limit).Find(&blogs).Error; err != nil {
+	offset := (page - 1) * limit
+	if err := db.DB.Offset(offset).Limit(limit).Find(&blogs).Error; err != nil {
 		return nil, err
 	}
 
-	totalPages := (int(total) + Limit - 1) / Limit
+	totalPages := (int(total) + limit - 1) / limit
 
 	return &QueryBlogsResponse{
 		Data:        blogs,

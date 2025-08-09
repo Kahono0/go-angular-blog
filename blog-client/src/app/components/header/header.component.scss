@@ -59,7 +59,7 @@ header {
           cursor: pointer;
 
           &:hover {
-            color: darkblue;
+            color: $blue-dark;
           }
         }
       li {
@@ -88,7 +88,7 @@ header {
             background-color: transparent;
 
             &:focus {
-              border-color: darkblue;
+              border-color: $blue-dark;
               outline: none;
             }
           }

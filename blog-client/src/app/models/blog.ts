@@ -7,3 +7,9 @@ export interface Blog {
     readingTime?: number;
     createdAt?: string;
 };
+
+export interface BlogResponse {
+    data: Blog[];
+    totalPages: number;
+    currentPage: number;
+}

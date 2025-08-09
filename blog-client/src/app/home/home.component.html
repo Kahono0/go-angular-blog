@@ -19,7 +19,8 @@
     </div>
     <div class="content">
       <span>
-        {{ blog.createdAt | date : "MMM yyyy" }} • {{ blog.readingTime }} min read
+        {{ blog.createdAt | date : "MMM yyyy" }} • {{ blog.readingTime }} min
+        read
       </span>
       <h2>{{ blog.title }}</h2>
       <p>{{ blog.content }}</p>
@@ -27,3 +28,40 @@
   </article>
   }
 </section>
+<div class="pagination">
+  <button
+    [disabled]="currentPage === 1"
+    (click)="changePage(currentPage - 1)"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="arcs"
+    >
+      <path d="M15 18l-6-6 6-6"></path>
+    </svg>
+  </button>
+  @for (p of toShowPages; track $index) {
+  <button [class.active]="currentPage == p" (click)="changePage(p)">
+    <span>{{ p }}</span>
+  </button>
+  }
+  <button
+    [disabled]="currentPage === totalPages"
+    (click)="changePage(currentPage + 1)"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="arcs"
+    >
+      <path d="M9 18l6-6-6-6"></path>
+    </svg>
+  </button>
+</div>

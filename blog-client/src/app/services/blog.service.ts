@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Blog } from '../models/blog';
+import { Blog, BlogResponse } from '../models/blog';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,13 @@ export class BlogService {
   private base = 'http://127.0.0.1:3000';
   constructor(private http: HttpClient) {}
 
-  list(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${this.base}/blogs`);
+  list(page: number, itemsPerPage: number): Observable<BlogResponse> {
+    return this.http.get<BlogResponse>(`${this.base}/blogs`, {
+      params: {
+        page: page.toString(),
+        itemsPerPage: itemsPerPage.toString(),
+      },
+    });
   }
 
   get(slug: string): Observable<Blog> {

@@ -62,7 +62,8 @@ func CreateBlog(c *fiber.Ctx) error {
 
 func GetAllBlogs(c *fiber.Ctx) error {
 	page := c.QueryInt("page", 1)
-	blogsResponse, err := service.QueryBlogs(page)
+	itemsPerPage := c.QueryInt("itemsPerPage", 0)
+	blogsResponse, err := service.QueryBlogs(page, itemsPerPage)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to retrieve blogs"})
 	}
