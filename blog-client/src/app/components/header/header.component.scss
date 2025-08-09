@@ -1,0 +1,121 @@
+@import 'variables';
+@import 'breakpoints';
+
+header {
+  background-color: $gray-light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 10%;
+  padding-block: 10px;
+
+  @include respond-sm {
+    padding-inline: 10px;
+    padding-block: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  div {
+    width: 120px;
+    height: 60px;
+
+    @include respond-sm {
+      width: 80px;
+      height: 40px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+
+  nav {
+    @include respond-sm {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    ul {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 24px;
+      margin: 0;
+
+      @include respond-sm {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0;
+      }
+      .link {
+          text-decoration: none;
+          color: black;
+          font-size: 1.2em;
+          font-weight: 400;
+          cursor: pointer;
+
+          &:hover {
+            color: darkblue;
+          }
+        }
+      li {
+
+
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: fit-content;
+          position: relative;
+
+          @include respond-sm {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+          }
+
+          input {
+            width: 200px;
+            padding: 0.5em;
+            border: 1px solid $gray-dark;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            background-color: transparent;
+
+            &:focus {
+              border-color: darkblue;
+              outline: none;
+            }
+          }
+
+          svg {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            transform: translateY(-50%);
+          }
+        }
+
+        button {
+          padding: 0.5em 1em;
+          background-color: $gray-dark;
+          color: white;
+          border: none;
+          font-weight: bolder;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 1em;
+
+        }
+      }
+    }
+
+  }
+}

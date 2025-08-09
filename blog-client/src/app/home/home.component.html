@@ -1,0 +1,29 @@
+<h1>The Accessibility Blog</h1>
+<p class="txt">The voice of the excluded</p>
+
+@if (loading) {
+<div class="loader">
+  <p>Fetching blogs...</p>
+</div>
+} @if (error) {
+<div class="error">
+  <p>Error fetching blogs: {{ error }}</p>
+</div>
+}
+
+<section>
+  @for (blog of blogs; track $index) {
+  <article [routerLink]="['/blog', blog.slug]">
+    <div class="thumb">
+      <img [src]="blog.image" [alt]="blog.title" />
+    </div>
+    <div class="content">
+      <span>
+        {{ blog.createdAt | date : "MMM yyyy" }} • {{ blog.readingTime }} min read
+      </span>
+      <h2>{{ blog.title }}</h2>
+      <p>{{ blog.content }}</p>
+    </div>
+  </article>
+  }
+</section>
