@@ -10,11 +10,14 @@ import (
 func SetUpRoutes(app *fiber.App) {
 	app.Use(cors.New())
 
+	app.Static("/", "./web")
+
 	// serve static files
 	app.Static("/uploads", "./uploads")
 
-	app.Post("/blog", handlers.CreateBlog)
-	app.Get("/blogs/search", handlers.SearchBlogs)
-	app.Get("/blogs/:slug", handlers.GetBlogBySlug)
-	app.Get("/blogs", handlers.GetAllBlogs)
+	api := app.Group("/api")
+	api.Post("/blog", handlers.CreateBlog)
+	api.Get("/blogs/search", handlers.SearchBlogs)
+	api.Get("/blogs/:slug", handlers.GetBlogBySlug)
+	api.Get("/blogs", handlers.GetAllBlogs)
 }

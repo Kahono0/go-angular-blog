@@ -23,7 +23,7 @@
         read
       </span>
       <h2>{{ blog.title }}</h2>
-      <p>{{ blog.content }}</p>
+      <p>{{ blog.content | slice:0:50 }}</p>
     </div>
   </article>
   }

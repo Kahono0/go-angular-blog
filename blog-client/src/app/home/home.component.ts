@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from '../models/blog';
 import { BlogService } from '../services/blog.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, SlicePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
