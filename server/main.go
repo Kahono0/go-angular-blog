@@ -4,6 +4,7 @@ import (
 	"blog/db"
 	"blog/router"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,5 +20,10 @@ func main() {
 	// Set up routes
 	router.SetUpRoutes(app)
 
-	log.Fatal(app.Listen(":3000"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
+	log.Fatal(app.Listen(":" + port))
 }
