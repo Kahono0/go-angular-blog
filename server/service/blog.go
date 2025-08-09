@@ -48,8 +48,9 @@ func CreateBlog(b *models.Blog) error {
 var Limit = 10
 
 type QueryBlogsResponse struct {
-	Data       []models.Blog `json:"data"`
-	TotalPages int           `json:"total_pages"`
+	Data        []models.Blog `json:"data"`
+	TotalPages  int           `json:"totalPages"`
+	CurrentPage int           `json:"currentPage"`
 }
 
 func QueryBlogs(page int) (*QueryBlogsResponse, error) {
@@ -72,8 +73,9 @@ func QueryBlogs(page int) (*QueryBlogsResponse, error) {
 	totalPages := (int(total) + Limit - 1) / Limit
 
 	return &QueryBlogsResponse{
-		Data:       blogs,
-		TotalPages: totalPages,
+		Data:        blogs,
+		TotalPages:  totalPages,
+		CurrentPage: page,
 	}, nil
 }
 
