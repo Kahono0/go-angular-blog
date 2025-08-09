@@ -7,7 +7,7 @@
       <li routerLink="/" class="link">Blogs</li>
       <li>
         <div>
-        <input type="text" placeholder="Text" />
+        <input #q type="text" placeholder="Text" (focus)="navigateToSearch()"/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="800px"

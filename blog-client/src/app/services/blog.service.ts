@@ -30,4 +30,10 @@ export class BlogService {
 
     return this.http.post(`${this.base}/blog`, formData);
   }
+
+  search(query: string): Observable<Blog[]> {
+    return this.http.get<Blog[]>(`${this.base}/blogs/search`, {
+      params: { q: query },
+    });
+  }
 }
