@@ -62,3 +62,12 @@ func GetBlogBySlug(slug string) (*models.Blog, error) {
 
 	return &blog, nil
 }
+
+func SearchBlogs(query string) ([]models.Blog, error) {
+	var blogs []models.Blog
+	if err := db.DB.Where("title LIKE ? OR content LIKE ?", "%"+query+"%", "%"+query+"%").Find(&blogs).Error; err != nil {
+		return nil, err
+	}
+
+	return blogs, nil
+}

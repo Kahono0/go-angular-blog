@@ -14,6 +14,7 @@ func SetUpRoutes(app *fiber.App) {
 	app.Static("/uploads", "./uploads")
 
 	app.Post("/blog", handlers.CreateBlog)
-	app.Get("/blogs", handlers.GetAllBlogs)
+	app.Get("/blogs/search", handlers.SearchBlogs)
 	app.Get("/blogs/:slug", handlers.GetBlogBySlug)
+	app.Get("/blogs", handlers.GetAllBlogs)
 }

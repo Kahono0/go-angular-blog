@@ -82,3 +82,17 @@ func GetBlogBySlug(c *fiber.Ctx) error {
 
 	return c.JSON(blog)
 }
+
+func SearchBlogs(c *fiber.Ctx) error {
+	query := c.Query("q")
+	if query == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Query parameter is required"})
+	}
+
+	blogs, err := service.SearchBlogs(query)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to search blogs"})
+	}
+
+	return c.JSON(blogs)
+}
