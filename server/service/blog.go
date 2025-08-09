@@ -7,6 +7,14 @@ import (
 	"strings"
 )
 
+var ExcerptLength = 50
+
+var WordsPerMinute = 200
+
+var (
+	ErrInvalidInput = errors.New("invalid input: title and content cannot be empty")
+)
+
 func generateSlug(title string) string {
 	return strings.ToLower(strings.ReplaceAll(title, " ", "-"))
 }
@@ -16,12 +24,6 @@ func contentWordCount(content string) int {
 	return len(words)
 }
 
-var WordsPerMinute = 200
-
-var (
-	ErrInvalidInput = errors.New("invalid input: title and content cannot be empty")
-)
-
 func estimateReadingTime(content string) int {
 	wordCount := contentWordCount(content)
 	if wordCount == 0 {
@@ -30,12 +32,21 @@ func estimateReadingTime(content string) int {
 	return (wordCount + WordsPerMinute - 1) / WordsPerMinute
 }
 
+func extractExcerpt(content string) string {
+	if len(content) <= ExcerptLength {
+		return content
+	}
+
+	return content[:ExcerptLength] + "..."
+}
+
 func CreateBlog(b *models.Blog) error {
 	if b.Title == "" || b.Content == "" {
 		return ErrInvalidInput
 	}
 
 	b.Slug = generateSlug(b.Title)
+	b.Excerpt = extractExcerpt(b.Content)
 	b.ReadingTime = estimateReadingTime(b.Content)
 
 	if err := db.DB.Create(b).Error; err != nil {
@@ -69,7 +80,7 @@ func QueryBlogs(page, limit int) (*QueryBlogsResponse, error) {
 	}
 
 	offset := (page - 1) * limit
-	if err := db.DB.Offset(offset).Limit(limit).Find(&blogs).Error; err != nil {
+	if err := db.DB.Select("id, title, slug, excerpt as content, image, reading_time, created_at").Offset(offset).Limit(limit).Find(&blogs).Error; err != nil {
 		return nil, err
 	}
 
@@ -93,7 +104,10 @@ func GetBlogBySlug(slug string) (*models.Blog, error) {
 
 func SearchBlogs(query string) ([]models.Blog, error) {
 	var blogs []models.Blog
-	if err := db.DB.Where("title LIKE ? OR content LIKE ?", "%"+query+"%", "%"+query+"%").Find(&blogs).Error; err != nil {
+
+	if err := db.DB.Select("id, title, slug, excerpt as content, image, reading_time, created_at").
+		Where("title LIKE ? OR content LIKE ?", "%"+query+"%", "%"+query+"%").
+		Find(&blogs).Error; err != nil {
 		return nil, err
 	}
 
