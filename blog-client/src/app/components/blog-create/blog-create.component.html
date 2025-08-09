@@ -8,12 +8,12 @@
 
   <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="blog-title">Blog Title</label>
+      <label>Blog Title</label>
       <input type="text" formControlName="title" placeholder="Harry Potter" />
     </div>
 
     <div>
-      <label for="blog-date">Blog Date</label>
+      <label>Blog Date</label>
       <input
         type="text"
         formControlName="createdAt"
@@ -22,7 +22,7 @@
     </div>
 
     <div>
-      <label for="slug">Slug</label>
+      <label>Slug</label>
       <input type="text" formControlName="slug" placeholder="harrypotter" />
     </div>
 
@@ -71,7 +71,7 @@
         placeholder="Text"
         maxlength="100"
       ></textarea>
-      <span>0/100</span>
+      <span>{{contentLength}}/100</span>
     </div>
 
     <div class="submit">

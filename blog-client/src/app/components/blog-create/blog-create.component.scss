@@ -9,6 +9,17 @@ section {
     margin: 4em auto;
     position: relative;
 
+    @include respond-sm {
+        width: 100%;
+        padding: 16px;
+        margin: 2em 0;
+    }
+    @include respond-md {
+        width: 100%;
+        padding: 20px;
+        margin: 2em 0;
+    }
+
     >div {
         display: flex;
         justify-content: space-between;
@@ -200,10 +211,12 @@ section {
                 font-size: 14px;
                 font-weight: 500;
                 cursor: pointer;
+                background-color: $blue-dark;
                 transition: background-color 0.2s;
 
-                &:hover {
+                &:disabled {
                     background-color: $gray-dark;
+                    cursor: not-allowed;
                 }
             }
         }

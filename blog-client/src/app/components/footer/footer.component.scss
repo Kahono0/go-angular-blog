@@ -1,7 +1,8 @@
 @import 'variables';
 @import 'breakpoints';
+
 footer {
-    background-color: $gray-light;
+  background-color: $gray-light;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,6 +14,12 @@ footer {
     padding-block: 10px;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
+  }
+
+  @include respond-md {
+    padding-inline: 20px;
+    padding-block: 15px;
   }
 
   div {

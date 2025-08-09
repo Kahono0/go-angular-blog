@@ -16,6 +16,11 @@ header {
     align-items: flex-start;
   }
 
+  @include respond-md {
+    padding-inline: 20px;
+    padding-block: 15px;
+  }
+
   div {
     width: 120px;
     height: 60px;

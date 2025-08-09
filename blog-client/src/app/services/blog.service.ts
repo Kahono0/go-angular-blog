@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog, BlogResponse } from '../models/blog';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BlogService {
-  private base = 'http://127.0.0.1:3000';
+  private base = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
   list(page: number, itemsPerPage: number): Observable<BlogResponse> {

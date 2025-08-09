@@ -4,16 +4,21 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 section{
   flex: 1;
-  display: flex;
-  flex-direction: column;
   width: 80%;
   margin: 0 auto;
 
   @include respond-sm {
-    padding-inline: 10px;
+    // width: 100%;
+    padding: 16px;
+  }
+
+  @include respond-md {
+    // width: 100%;
+    padding-inline: 20px;
   }
 }

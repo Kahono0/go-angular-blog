@@ -28,6 +28,7 @@
   </article>
   }
 </section>
+@if(blogs.length > 0) {
 <div class="pagination">
   <button
     [disabled]="currentPage === 1"
@@ -65,3 +66,4 @@
     </svg>
   </button>
 </div>
+}

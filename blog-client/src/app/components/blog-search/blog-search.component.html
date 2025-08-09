@@ -1,64 +1,71 @@
-<p class="link" routerLink="/">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M7.68473 7.33186C8.07526 6.94134 8.07526 6.30817 7.68473 5.91765C7.29421 5.52712 6.66105 5.52712 6.27052 5.91765L1.60492 10.5832C0.823873 11.3643 0.823872 12.6306 1.60492 13.4117L6.27336 18.0801C6.66388 18.4706 7.29705 18.4706 7.68757 18.0801C8.0781 17.6896 8.0781 17.0564 7.68757 16.6659L4.02154 12.9998L22 12.9998C22.5523 12.9998 23 12.5521 23 11.9998C23 11.4476 22.5523 10.9998 22 10.9998L4.01675 10.9998L7.68473 7.33186Z"
-      fill="#0F0F0F"
-    />
-  </svg>
-  Back to Blogs
-</p>
-
 <section>
-  <h1>Search Blogs</h1>
-  <div class="search">
-    <input
-    #searchInput
-    [value]="query"
-    (input)="onSearchChange(searchInput.value)"
-    type="text" placeholder="Text" />
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="800px"
-      height="800px"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <g clip-path="url(#clip0_15_152)">
-        <rect width="24" height="24" fill="current" />
-        <circle
-          cx="10.5"
-          cy="10.5"
-          r="6.5"
-          stroke="#000000"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M19.6464 20.3536C19.8417 20.5488 20.1583 20.5488 20.3536 20.3536C20.5488 20.1583 20.5488 19.8417 20.3536 19.6464L19.6464 20.3536ZM20.3536 19.6464L15.3536 14.6464L14.6464 15.3536L19.6464 20.3536L20.3536 19.6464Z"
-          fill="#000000"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_15_152">
-          <rect width="24" height="24" fill="white" />
-        </clipPath>
-      </defs>
+  <p class="link" routerLink="/">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M7.68473 7.33186C8.07526 6.94134 8.07526 6.30817 7.68473 5.91765C7.29421 5.52712 6.66105 5.52712 6.27052 5.91765L1.60492 10.5832C0.823873 11.3643 0.823872 12.6306 1.60492 13.4117L6.27336 18.0801C6.66388 18.4706 7.29705 18.4706 7.68757 18.0801C8.0781 17.6896 8.0781 17.0564 7.68757 16.6659L4.02154 12.9998L22 12.9998C22.5523 12.9998 23 12.5521 23 11.9998C23 11.4476 22.5523 10.9998 22 10.9998L4.01675 10.9998L7.68473 7.33186Z"
+        fill="#0F0F0F"
+      />
     </svg>
-  </div>
-  <p class="result-count">Showing {{ blogs.length }} results of "{{ query }}"</p>
-  <div class="results">
-    @for (blog of blogs; track $index) {
-  <article [routerLink]="['/blog', blog.slug]">
-    <div class="thumb">
-      <img [src]="blog.image" [alt]="blog.title" />
+    Back to Blogs
+  </p>
+
+  <section>
+    <h1>Search Blogs</h1>
+    <div class="search">
+      <input
+        #searchInput
+        [value]="query"
+        (input)="onSearchChange(searchInput.value)"
+        type="text"
+        placeholder="Text"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <g clip-path="url(#clip0_15_152)">
+          <rect width="24" height="24" fill="current" />
+          <circle
+            cx="10.5"
+            cy="10.5"
+            r="6.5"
+            stroke="#000000"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M19.6464 20.3536C19.8417 20.5488 20.1583 20.5488 20.3536 20.3536C20.5488 20.1583 20.5488 19.8417 20.3536 19.6464L19.6464 20.3536ZM20.3536 19.6464L15.3536 14.6464L14.6464 15.3536L19.6464 20.3536L20.3536 19.6464Z"
+            fill="#000000"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_15_152">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
     </div>
-    <div class="content">
-      <span>
-        {{ blog.createdAt | date : "MMM yyyy" }} • {{ blog.readingTime }} min read
-      </span>
-      <h2>{{ blog.title }}</h2>
-      <p>{{ blog.content }}</p>
+    <p class="result-count">
+      Showing {{ blogs.length }} results of "{{ query }}"
+    </p>
+    <div class="results">
+      @for (blog of blogs; track $index) {
+      <article [routerLink]="['/blog', blog.slug]">
+        <div class="thumb">
+          <img [src]="blog.image" [alt]="blog.title" />
+        </div>
+        <div class="content">
+          <span>
+            {{ blog.createdAt | date : "MMM yyyy" }} •
+            {{ blog.readingTime }} min read
+          </span>
+          <h2>{{ blog.title }}</h2>
+          <p>{{ blog.content }}</p>
+        </div>
+      </article>
+      }
     </div>
-  </article>
-  }
-  </div>
+  </section>
 </section>
